@@ -7,6 +7,7 @@ import {
   formatCurrency,
   formatDate,
 } from "../../utils/helpers";
+import OrderItem from "./OrderItem"
 
 
 function Order() {
@@ -26,29 +27,35 @@ function Order() {
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
-    <div>
-      <div>
+    <div className="py-4 px-2 space-y-8">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <h2>Status</h2>
 
-        <div>
-          {priority && <span>Priority</span>}
-          <span>{status} order</span>
+        <div className="space-x-4 ">
+          {priority && <span className="bg-red-600 rounded-full px-2 py-1.5 text-sm">Priority</span>}
+          <span className="bg-green-600 rounded-full px-2 py-1.5 text-sm">{status} order</span>
         </div>
       </div>
 
-      <div>
+      <div className="flex items-center justify-between flex-wrap gap-3 bg-stone-200/20 p-2">
         <p>
           {deliveryIn >= 0
             ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
             : "Order should have arrived"}
         </p>
-        <p>(Estimated delivery: {formatDate(estimatedDelivery)})</p>
+        <p className="text-xs font-semibold">(Estimated delivery: {formatDate(estimatedDelivery)})</p>
       </div>
 
-      <div>
-        <p>Price pizza: {formatCurrency(orderPrice)}</p>
-        {priority && <p>Price priority: {formatCurrency(priorityPrice)}</p>}
-        <p>To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
+      <ul className="divide-y border-b">
+      {
+        cart.map((item)=><OrderItem item={item} key={item.pizzaId}/>)
+      }
+      </ul>
+
+      <div className=" bg-stone-200/20 p-2 space-y-2">
+        <p className="text-sm">Price pizza: {formatCurrency(orderPrice)}</p>
+        {priority && <p className="text-sm">Price priority: {formatCurrency(priorityPrice)}</p>}
+        <p className="font-semibold text-sm">To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
       </div>
     </div>
   );

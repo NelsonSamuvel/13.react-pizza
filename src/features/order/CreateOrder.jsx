@@ -43,36 +43,37 @@ function CreateOrder() {
   const formErrors = useActionData();
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="p-4">
+      <h2 className="mb-6 mt-4 font-semibold text-lg">Ready to order? Let's go!</h2>
 
       <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required className="input" />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center mb-4 sm:mb-6">
+          <label className="sm:basis-40">First Name</label>
+          <input type="text" name="customer" required className="input grow" />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type="tel" name="phone" className="input" required />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center mb-4 sm:mb-6">
+          <label className={`sm:basis-40 ${formErrors?.phone && "sm:self-start sm:mt-2"}`}>Phone number</label>
+          <div className="grow">
+            <input type="tel" name="phone" className="input w-full" required />
+            {formErrors?.phone && <p className="text-xs text-red-500 bg-red-200 p-1.5 rounded-lg mt-3 font-semibold">{formErrors.phone}</p>}
           </div>
-          {formErrors?.phone && <p>{formErrors.ph}</p>}
+         
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input type="text" name="address" required className="input" />
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center mb-4">
+          <label className="sm:basis-40">Address</label>
+          <div className=" grow">
+            <input type="text" name="address" required className="input w-full" />
           </div>
         </div>
 
-        <div>
+        <div className="flex gap-4 items-center mt-6 mb-4">
           <input
             type="checkbox"
             name="priority"
             id="priority"
-            className="size-4 accent-yellow-400 md:size-6"
+            className=" accent-yellow-400 size-4"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
@@ -109,9 +110,10 @@ export async function action({ request }) {
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const newOrder = await createOrder(order);
+  // const newOrder = await createOrder(order);
 
-  return redirect(`/order/${newOrder.id}`);
+  // return redirect(`/order/${newOrder.id}`);
+  return null;
 }
 
 export default CreateOrder;

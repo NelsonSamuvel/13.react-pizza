@@ -7,7 +7,7 @@ function Button({ children,disabled ,to,type}) {
     const btnStyles = {
       primary : `${base} py-1.5 px-3 sm:py-2 sm:px-4`,
       small : `${base} py-2 px-3 sm:py-2 sm:px-4 text-sm font-bold`,
-      secondary : `${base} bg-transparent border py-1 px-3 sm:py-1.5 sm:px-3 text-slate-300 font-normal hover:bg-stone-200 hover:text-stone-900`
+      secondary : `${base} bg-transparent border py-1 px-3 sm:py-1.5 sm:px-3 text-white font-normal hover:bg-stone-200 hover:text-stone-900`
     }
 
 

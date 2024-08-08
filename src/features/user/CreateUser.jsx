@@ -19,7 +19,7 @@ function CreateUser() {
         placeholder="Your full name"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="mt-4 input w-64 text-stone-800 sm:w-72"
+        className="mt-6 input w-64 text-stone-800 sm:w-72"
       />
 
       {username !== "" && (
