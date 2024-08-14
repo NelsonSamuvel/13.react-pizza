@@ -4,7 +4,7 @@
 
 @layer components {
   .input {
-    @apply  rounded-full px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none md:px-6 md:py-3 md:text-base;
+    @apply  rounded-full px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none  ;
   }
   .loader {
     width: 45px;

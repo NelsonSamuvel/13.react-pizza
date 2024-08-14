@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import LinkButton from "../../UI/LinkButton";
 import Button from "../../UI/Button";
 import CartItem from "./CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { clearItem } from "./cartSlice";
 
 const fakeCart = [
   {
@@ -28,27 +30,44 @@ const fakeCart = [
 ];
 
 function Cart() {
-  const cart = fakeCart;
+  const { username } = useSelector((store) => store.user);
+
+  const { cart } = useSelector((store) => store.cart);
+
+  const dispatch = useDispatch();
+
+  function handleClearCart() {
+    dispatch(clearItem());
+  }
 
   return (
     <div className="p-4">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
 
-      <h2 className="mt-6 text-lg font-semibold">Your cart, %NAME%</h2>
+      {!cart.length ? (
+        <p className="mt-4 font-semibold">
+          Your cart is still empty. Start adding some pizzas :)
+        </p>
+      ) : (
+        <>
+          <h2 className="mt-6 text-lg font-semibold">Your cart, {username}</h2>
+          <ul className="divide-y divide-stone-200 border-b">
+            {cart.map((item) => (
+              <CartItem key={item.pizzaId} item={item} />
+            ))}
+          </ul>
 
-      <ul className="divide-y divide-stone-200 border-b">
-        {cart.map((item) => (
-          <CartItem key={item.pizzaId} item={item} />
-        ))}
-      </ul>
+          <div className="mb-4 mt-6 flex flex-wrap gap-4">
+            <Button to="/order/new" type="primary">
+              Order Pizzas
+            </Button>
 
-      <div className="mt-8 mb-4 space-x-2">
-        <Button to="/order/new" type="primary">
-          Order Pizzas
-        </Button>
-
-        <Button type="secondary">Clear cart</Button>
-      </div>
+            <Button type="secondary" onClick={handleClearCart}>
+              Clear cart
+            </Button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
